@@ -1,0 +1,9 @@
+global using System;
+global using MongoDB.Bson.Serialization.Attributes;
+global using MongoDB.Bson;
+global using week3.Models;
+global using Microsoft.Extensions.Options;
+global using MongoDB.Driver;
+global using week3.Configuration;
+global using week3.Repositories;
+global using week3.DataContext;
