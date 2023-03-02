@@ -3,32 +3,35 @@ using System;
 namespace week3.Repositories;
 public interface ICarRepository
 {
-    Car AddCar(Car newCar);
-    Car GetCar(string id);
-    List<Car> GetAllCars();
+    Task<Car> AddCar(Car newCar);
+    Task<Car> GetCar(string id);
+    Task<List<Car>> GetAllCars();
+    
 }
-public class CarRepository: ICarRepository
+public class CarRepository : ICarRepository
 {
-    private readonly IMongoCollection<Car> _cars;
+    private readonly IMongoContext _context;
     public CarRepository(IMongoContext context)
     {
-        _cars = context.CarsCollection;
+        _context = context;
     }
 
-    public Car AddCar(Car car)
+    public async Task<Car> AddCar(Car car)
     {
-        _cars.InsertOne(car);
+        car.CreatedOn = DateTime.Now;
+        await _context.CarsCollection.InsertOneAsync(car);
         return car;
     }
 
-    public Car GetCar(string id)
+    public Task<Car> GetCar(string id)
     {
-        return _cars.Find(car => car.Id == id).FirstOrDefault();
+        throw new NotImplementedException();
+        // return _cars.Find(car => car.Id == id).FirstOrDefault();
     }
 
-    public List<Car> GetAllCars()
+    public async Task<List<Car>> GetAllCars()
     {
-        return _cars.Find(car => true).ToList();
+        return await _context.CarsCollection.Find(_ => true).ToListAsync();
     }
 
 }

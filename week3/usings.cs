@@ -7,3 +7,4 @@ global using MongoDB.Driver;
 global using week3.Configuration;
 global using week3.Repositories;
 global using week3.DataContext;
+global using week3.Services;

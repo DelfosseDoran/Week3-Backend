@@ -1,5 +1,3 @@
-using System;
-
 namespace week3.Configuration;
 public class DatabaseSettings
 {

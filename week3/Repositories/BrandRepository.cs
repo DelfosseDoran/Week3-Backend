@@ -4,35 +4,44 @@ using System;
 namespace week3.Repositories;
 public interface IBrandRepository
 {
-    Brand AddBrand(Brand newBrand);
-    Brand GetBrand(string id);
-    List<Brand> GetAllBrands();
-    Brand UpdateBrand(Brand brand);
+    Task<Brand> AddBrand(Brand newBrand);
+    Task<Brand> GetBrand(string id);
+    Task<List<Brand>> GetAllBrands();
+    Task<Brand> UpdateBrand(Brand brand);
+    Task DeleteBrand(string id);
 }
 public class BrandRepository : IBrandRepository
 {
-    private readonly IMongoCollection<Brand> _brands;
+    private readonly IMongoContext _context;
     public BrandRepository(IMongoContext context)
     {
-        _brands = context.BrandsCollection;
+        _context = context;
     }
 
-    public Brand AddBrand(Brand newBrand)
+    public async Task<Brand> AddBrand(Brand newBrand)
     {
-        _brands.InsertOne(newBrand);
+        newBrand.CreatedOn = DateTime.Now;
+        await _context.BrandsCollection.InsertOneAsync(newBrand);
         return newBrand;
     }
-    public Brand GetBrand(string id)
+    public async Task<Brand> GetBrand(string id)
     {
-        return _brands.Find(brand => brand.Id == id).FirstOrDefault();
+        throw new NotImplementedException();
+        // return await _context.BrandsCollection.Find(brand => brand.Id == id).FirstOrDefault();
     }
-    public List<Brand> GetAllBrands()
+    public async Task<List<Brand>> GetAllBrands()
     {
-        return _brands.Find(brand => true).ToList();
+        return await _context.BrandsCollection.Find(_ => true).ToListAsync();
     }
-    public Brand UpdateBrand(Brand brand)
+    public Task<Brand> UpdateBrand(Brand brand)
     {
-        _brands.ReplaceOne(brand => brand.Id == brand.Id, brand);
-        return brand;
+        throw new NotImplementedException();
+        // _brands.ReplaceOne(brand => brand.Id == brand.Id, brand);
+        // return brand;
+    }
+    public Task DeleteBrand(string id)
+    {
+        throw new NotImplementedException();
+        // _brands.DeleteOne(brand => brand.Id == id);
     }
 }
