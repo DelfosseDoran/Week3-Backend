@@ -50,7 +50,7 @@ public class CarService: ICarService
 
     public Task<Brand> GetBrand(string id)
     {
-        throw new NotImplementedException();
+        return _brandRepository.GetBrand(id);
     }
 
     public Task<Car> GetCar(string id)

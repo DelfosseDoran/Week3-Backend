@@ -26,8 +26,7 @@ public class BrandRepository : IBrandRepository
     }
     public async Task<Brand> GetBrand(string id)
     {
-        throw new NotImplementedException();
-        // return await _context.BrandsCollection.Find(brand => brand.Id == id).FirstOrDefault();
+        return await _context.BrandsCollection.Find(brand => brand.Id == id).FirstOrDefaultAsync();
     }
     public async Task<List<Brand>> GetAllBrands()
     {

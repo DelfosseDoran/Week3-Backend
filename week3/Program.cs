@@ -16,4 +16,14 @@ app.MapGet("/setup", async (ICarService carService) =>
     return "Setup done";
 });
 
+app.MapGet("/brands", async (ICarService carService) =>
+{
+    return await carService.GetAllBrands();
+});
+
+app.MapGet("/brands/{id}", async (string id, ICarService carService) =>
+{
+    return await carService.GetBrand(id);
+});
+
 app.Run("http://localhost:5000");
