@@ -11,6 +11,8 @@ public interface ICarService
     Task<Car> AddCar(Car newCar);
     Task<Car> GetCar(string id);
     Task<List<Car>> GetAllCars();
+    Task<Car> UpdateCar(Car car);
+    Task DeleteCar(string id);
 }
 
 public class CarService: ICarService
@@ -25,27 +27,32 @@ public class CarService: ICarService
 
     public Task<Brand> AddBrand(Brand newBrand)
     {
-        throw new NotImplementedException();
+        return _brandRepository.AddBrand(newBrand);
     }
 
     public Task<Car> AddCar(Car newCar)
     {
-        throw new NotImplementedException();
+        return _carRepository.AddCar(newCar);
     }
 
     public Task DeleteBrand(string id)
     {
-        throw new NotImplementedException();
+        return _brandRepository.DeleteBrand(id);
+    }
+
+    public Task DeleteCar(string id)
+    {
+        return _carRepository.DeleteCar(id);
     }
 
     public Task<List<Brand>> GetAllBrands()
     {
-        throw new NotImplementedException();
+        return _brandRepository.GetAllBrands();
     }
 
     public Task<List<Car>> GetAllCars()
     {
-        throw new NotImplementedException();
+        return _carRepository.GetAllCars();
     }
 
     public Task<Brand> GetBrand(string id)
@@ -55,7 +62,17 @@ public class CarService: ICarService
 
     public Task<Car> GetCar(string id)
     {
-        throw new NotImplementedException();
+        return _carRepository.GetCar(id);
+    }
+
+    public Task<Brand> UpdateBrand(Brand brand)
+    {
+        return _brandRepository.UpdateBrand(brand);
+    }
+
+    public Task<Car> UpdateCar(Car car)
+    { 
+        return _carRepository.UpdateCar(car);
     }
 
     public async Task SetupDummyData()
@@ -120,10 +137,5 @@ public class CarService: ICarService
             foreach (var car in cars)
                 await _carRepository.AddCar(car);
         }
-    }
-
-    public Task<Brand> UpdateBrand(Brand brand)
-    {
-        throw new NotImplementedException();
     }
 }

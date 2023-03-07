@@ -32,15 +32,26 @@ public class BrandRepository : IBrandRepository
     {
         return await _context.BrandsCollection.Find(_ => true).ToListAsync();
     }
-    public Task<Brand> UpdateBrand(Brand brand)
+    public async Task<Brand> UpdateBrand(Brand brand)
     {
-        throw new NotImplementedException();
+        Console.WriteLine(brand);
+        var filter = Builders<Brand>.Filter.Eq(brand => brand.Id, brand.Id);
+        var update = Builders<Brand>.Update
+            .Set("Name", brand.Name)
+            .Set("Country", brand.Country)
+            .Set("Logo", brand.Logo)
+            .Set("UpdatedOn", DateTime.Now);
+
+
+
+        var result = await _context.BrandsCollection.UpdateOneAsync(filter, update);
+        return brand;
         // _brands.ReplaceOne(brand => brand.Id == brand.Id, brand);
         // return brand;
     }
-    public Task DeleteBrand(string id)
+    public async Task DeleteBrand(string id)
     {
-        throw new NotImplementedException();
+        await _context.BrandsCollection.DeleteOneAsync(brand => brand.Id == id);
         // _brands.DeleteOne(brand => brand.Id == id);
     }
 }

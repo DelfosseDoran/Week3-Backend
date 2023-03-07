@@ -1,0 +1,26 @@
+GET http://localhost:5000/setup HTTP/1.1
+
+###
+GET http://localhost:5000/brands HTTP/1.1
+
+###
+POST http://localhost:5000/sneakers HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Air Max 90",
+    "brand": {
+        "name": "Nike"
+    },
+    "model": "Air Max 90",
+    "occasion": [
+        {
+            "name": "Casual"
+        },
+        {
+            "name": "Sport"
+        }
+    ],
+    "price": 100,
+    "stock": 10
+}

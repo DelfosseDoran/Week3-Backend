@@ -1,0 +1,15 @@
+global using System;
+global using MongoDB.Bson.Serialization.Attributes;
+global using MongoDB.Bson;
+global using week3_oef2.Models;
+global using Microsoft.Extensions.Options;
+global using MongoDB.Driver;
+global using week3_oef2.Configuration;
+global using week3_oef2.Repositories;
+global using week3_oef2.DataContext;
+global using week3_oef2.Services;
+global using FluentValidation;
+global using lab_03_security.Validators;
+// global using HotChocolate;
+// global using week3_oef2.GraphQL.queries;
+// global using week3_oef2.GraphQL.Mutations;

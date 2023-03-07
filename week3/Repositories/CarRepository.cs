@@ -6,6 +6,8 @@ public interface ICarRepository
     Task<Car> AddCar(Car newCar);
     Task<Car> GetCar(string id);
     Task<List<Car>> GetAllCars();
+    Task<Car> UpdateCar(Car car);
+    Task DeleteCar(string id);
     
 }
 public class CarRepository : ICarRepository
@@ -23,9 +25,9 @@ public class CarRepository : ICarRepository
         return car;
     }
 
-    public Task<Car> GetCar(string id)
+    public async Task<Car> GetCar(string id)
     {
-        throw new NotImplementedException();
+        return await _context.CarsCollection.Find(car => car.Id == id).FirstOrDefaultAsync();
         // return _cars.Find(car => car.Id == id).FirstOrDefault();
     }
 
@@ -34,4 +36,20 @@ public class CarRepository : ICarRepository
         return await _context.CarsCollection.Find(_ => true).ToListAsync();
     }
 
+    public async Task<Car> UpdateCar(Car car)
+    {
+        var filter = Builders<Car>.Filter.Eq(car => car.Id, car.Id);
+        var update = Builders<Car>.Update
+            .Set("Brand", car.Brand)
+            .Set("Name", car.Name)
+            .Set("UpdatedOn", DateTime.Now);
+        var result = await _context.CarsCollection.UpdateOneAsync(filter, update);
+        return car;
+        
+    }
+
+    public async Task DeleteCar(string id)
+    {
+        await _context.CarsCollection.DeleteOneAsync(car => car.Id == id);
+    }
 }
